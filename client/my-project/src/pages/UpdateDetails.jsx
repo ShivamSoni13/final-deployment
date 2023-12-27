@@ -21,7 +21,7 @@ function UpdateDetails({ onUpdate }) {
         }
         break;
       case 'email':
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || value === '') {
+        if (/^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2,6}$/.test(value) || value === '') {
           setFormData({ ...formData, [name]: value });
         }
         break;
@@ -42,13 +42,6 @@ function UpdateDetails({ onUpdate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Perform additional validation before updating the details
-    if (!formData.username.trim() || !formData.father.trim() || !formData.email.trim() || !formData.age.trim() || !formData.phone.trim()) {
-      alert('All fields are required');
-      return;
-    }
-
     onUpdate(formData);
   };
 
