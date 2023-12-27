@@ -12,11 +12,43 @@ function UpdateDetails({ onUpdate }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    switch (name) {
+      case 'username':
+      case 'father':
+        if (/^[a-zA-Z\s]*$/.test(value) || value === '') {
+          setFormData({ ...formData, [name]: value });
+        }
+        break;
+      case 'email':
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || value === '') {
+          setFormData({ ...formData, [name]: value });
+        }
+        break;
+      case 'age':
+        if (/^\d*$/.test(value) || value === '') {
+          setFormData({ ...formData, [name]: value });
+        }
+        break;
+      case 'phone':
+        if (/^\d{0,10}$/.test(value) || value === '') {
+          setFormData({ ...formData, [name]: value });
+        }
+        break;
+      default:
+        setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Perform additional validation before updating the details
+    if (!formData.username.trim() || !formData.father.trim() || !formData.email.trim() || !formData.age.trim() || !formData.phone.trim()) {
+      alert('All fields are required');
+      return;
+    }
+
     onUpdate(formData);
   };
 
@@ -34,6 +66,7 @@ function UpdateDetails({ onUpdate }) {
             className="w-full border rounded-md p-2 focus:outline-none focus:border-blue-400"
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Father:</label>
           <input
