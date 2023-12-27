@@ -2,6 +2,7 @@
   "name": "techitrex_library_proj",
   "version": "1.0.0",
   "description": "library project for management",
+  "main": "index.js"
   "scripts": {
     "start": "node index.js"
   },
