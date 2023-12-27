@@ -36,37 +36,39 @@ const RegisterUser = () => {
           });
         }
         break;
-      case 'email':
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || value === '') {
+        case 'email':
+          // Updated email validation regular expression
+          if (/^\S+@\S+\.\S+$/.test(value) || value === '') {
+            setFormData({
+              ...formData,
+              [name]: value,
+            });
+          }
+          break;
+        case 'age':
+          if (/^\d*$/.test(value) || value === '') {
+            setFormData({
+              ...formData,
+              [name]: value,
+            });
+          }
+          break;
+        case 'phone':
+          // Allow only numeric values for Phone Number
+          if (/^\d*$/.test(value)) {
+            setFormData({
+              ...formData,
+              [name]: value,
+            });
+          }
+          break;
+        default:
           setFormData({
             ...formData,
             [name]: value,
           });
-        }
-        break;
-      case 'age':
-        if (/^\d*$/.test(value) || value === '') {
-          setFormData({
-            ...formData,
-            [name]: value,
-          });
-        }
-        break;
-      case 'phone':
-        if (/^\d{0,10}$/.test(value)) {
-          setFormData({
-            ...formData,
-            [name]: value,
-          });
-        }
-        break;
-      default:
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
-    }
-  };
+      }
+    };
 
   const navigate = useNavigate();
 
