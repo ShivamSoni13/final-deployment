@@ -38,7 +38,7 @@ const RegisterUser = () => {
         break;
         case 'email':
           // Updated email validation regular expression
-          if (/^\S+@\S+\.\S+$/.test(value) || value === '') {
+          if (/^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2-6}$/.test(value) || value === '') {
             setFormData({
               ...formData,
               [name]: value,
