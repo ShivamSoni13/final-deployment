@@ -4,7 +4,8 @@
   "description": "library project for management",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "npm install && npm install --prefix client/my-project && npm run build --prefix client/my-project"
   },
   "author": "bhaskar,shivam",
   "license": "ISC",

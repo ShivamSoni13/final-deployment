@@ -9,8 +9,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const userRoute = require("./routes/user");
 const cors = require("cors");
+const path = require("path");
 const app = express();
-const path = require(path);
 const PORT = process.env.PORT || 3002;
 const uri = process.env.URI;
 mongoose
@@ -142,16 +142,28 @@ app.get("/profile", isAuthenticated, (req, res) => {
   res.json({ message: "Access to protected resource granted", user: req.user });
 });
 */
-
-// Static Files
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-app.get('*', function(req,res){
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
-
 // User routes
 app.use("/api", userRoute);
+
+// Deployment Code 
+
+const __dirname1 = path.resolve();
+if(process.env.NODE_ENV === 'production'){
+
+  app.use(express.static(path.join(__dirname1, "../client/dist")));
+
+  app.get('*', (req,res)=> {
+    res.sendFile(path.resolve(__dirname1, "../client/dist/index.html"));
+  });
+
+}else {
+  app.get("/", (req,res) => {
+    res.send("API is Running Successfully")
+  });
+
+}
+
+// Deployment Code
 
 app.options("*", cors());
 
