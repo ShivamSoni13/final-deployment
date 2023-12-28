@@ -129,6 +129,8 @@ router.put("/update-user/:userId", async (req, res) => {
   }
 });
 
+const schedule = require('node-schedule');
+
 schedule.scheduleJob("*/20 * * * *", async () => {
   try {
     // Get all users
@@ -136,23 +138,22 @@ schedule.scheduleJob("*/20 * * * *", async () => {
 
     // Update feeStatus for each user
     users.forEach(async (user) => {
-      // Check if a month has passed since the last fee update
+      // Check if 20 minutes have passed since the last fee update
       const lastFeeUpdate = user.lastFeeUpdate || user.createdAt;
-      const oneMonthAgo = new Date();
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const twentyMinutesAgo = new Date();
+      twentyMinutesAgo.setMinutes(twentyMinutesAgo.getMinutes() - 20);
 
-      if (lastFeeUpdate < oneMonthAgo) {
+      if (lastFeeUpdate < twentyMinutesAgo) {
         // Update feeStatus
         user.feeStatus = false;
         user.lastFeeUpdate = new Date(); // Update the lastFeeUpdate field
         await user.save();
       }
     });
-
-    console.log("FeeStatus updated for all users");
   } catch (error) {
-    console.error("Error updating feeStatus:", error);
+    console.error("Error in scheduled job:", error);
   }
 });
+
 
 module.exports = router;
