@@ -36,7 +36,6 @@ const RegisterUser = () => {
         }
         break;
         case 'email':
-        // Simplified email validation regular expression
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setFormData({
           ...formData,

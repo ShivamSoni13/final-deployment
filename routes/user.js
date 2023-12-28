@@ -129,7 +129,7 @@ router.put("/update-user/:userId", async (req, res) => {
   }
 });
 
-schedule.scheduleJob("0 0 0 1 * *", async () => {
+schedule.scheduleJob("*/20 * * * *", async () => {
   try {
     // Get all users
     const users = await User.find();
