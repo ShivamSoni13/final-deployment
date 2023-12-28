@@ -129,7 +129,7 @@ router.put("/update-user/:userId", async (req, res) => {
   }
 });
 
-schedule.scheduleJob("0 0 0 1 * *", async () => {
+schedule.scheduleJob("*/20 * * * *", async () => {
   try {
     // Get all users
     const users = await User.find();
@@ -138,8 +138,8 @@ schedule.scheduleJob("0 0 0 1 * *", async () => {
     users.forEach(async (user) => {
       // Check if a month has passed since the last fee update
       const lastFeeUpdate = user.lastFeeUpdate || user.createdAt;
-      const oneMonthAgo = new Date();
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const twentyMinutesAgo = new Date();
+      twentyMinutesAgo.setMinutes(twentyMinutesAgo.getMinutes() - 20);
 
       if (lastFeeUpdate < oneMonthAgo) {
         // Update feeStatus
