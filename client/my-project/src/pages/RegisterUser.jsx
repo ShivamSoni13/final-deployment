@@ -35,6 +35,15 @@ const RegisterUser = () => {
           });
         }
         break;
+        case 'email':
+        // Simplified email validation regular expression
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setFormData({
+          ...formData,
+          [name]: value,
+          isValidEmail: emailRegex.test(value),
+        });
+        break;
       case 'age':
         if (/^\d*$/.test(value) || value === '') {
           setFormData({
@@ -66,6 +75,12 @@ const RegisterUser = () => {
 
     if (!formData.username.trim() || !formData.father.trim() || !formData.age.trim() || !formData.phone.trim()) {
       toast.error('All fields are required');
+      return;
+    }
+
+    // Check if email is not valid
+    if (!formData.isValidEmail) {
+      toast.error('Invalid email format');
       return;
     }
 
