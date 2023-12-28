@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { userRequest } from '../util/requestMethod';
@@ -36,46 +35,36 @@ const RegisterUser = () => {
           });
         }
         break;
-        case 'email':
-          // Updated email validation regular expression
-          if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value) || value === '') {
-            setFormData({
-              ...formData,
-              [name]: value,
-            });
-          }
-          break;
-        case 'age':
-          if (/^\d*$/.test(value) || value === '') {
-            setFormData({
-              ...formData,
-              [name]: value,
-            });
-          }
-          break;
-        case 'phone':
-          // Allow only numeric values for Phone Number
-          if (/^\d{0,10}$/.test(value) || value === '') {
-            setFormData({
-              ...formData,
-              [name]: value,
-            });
-          }
-          break;
-        default:
+      case 'age':
+        if (/^\d*$/.test(value) || value === '') {
           setFormData({
             ...formData,
             [name]: value,
           });
-      }
-    };
+        }
+        break;
+      case 'phone':
+        if (/^\d{0,10}$/.test(value) || value === '') {
+          setFormData({
+            ...formData,
+            [name]: value,
+          });
+        }
+        break;
+      default:
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+    }
+  };
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username.trim() || !formData.father.trim() || !formData.email.trim() || !formData.age.trim() || !formData.phone.trim()) {
+    if (!formData.username.trim() || !formData.father.trim() || !formData.age.trim() || !formData.phone.trim()) {
       toast.error('All fields are required');
       return;
     }
