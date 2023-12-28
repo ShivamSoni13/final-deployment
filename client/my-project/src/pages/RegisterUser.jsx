@@ -38,7 +38,7 @@ const RegisterUser = () => {
         break;
         case 'email':
           // Updated email validation regular expression
-          if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value) || value === '') {
+          if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value) || value === '') {
             setFormData({
               ...formData,
               [name]: value,
@@ -55,7 +55,7 @@ const RegisterUser = () => {
           break;
         case 'phone':
           // Allow only numeric values for Phone Number
-          if (/^\d*$/.test(value)) {
+          if (/^\d{0,10}$/.test(value) || value === '') {
             setFormData({
               ...formData,
               [name]: value,
