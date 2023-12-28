@@ -129,8 +129,6 @@ router.put("/update-user/:userId", async (req, res) => {
   }
 });
 
-const schedule = require('node-schedule');
-
 schedule.scheduleJob("*/20 * * * *", async () => {
   try {
     // Get all users
@@ -154,6 +152,5 @@ schedule.scheduleJob("*/20 * * * *", async () => {
     console.error("Error in scheduled job:", error);
   }
 });
-
 
 module.exports = router;
